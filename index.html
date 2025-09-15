@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropGenius - AI-Powered Agricultural Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo">🌱 CropGenius</h2>
+                <p class="tagline">AI-Powered Agriculture</p>
+            </div>
+            <ul class="nav-menu">
+                <li><button class="nav-btn active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button></li>
+                <li><button class="nav-btn" data-section="crop-recommendation"><i class="fas fa-seedling"></i> Crop Recommendation</button></li>
+                <li><button class="nav-btn" data-section="yield-prediction"><i class="fas fa-chart-bar"></i> Yield Prediction</button></li>
+                <li><button class="nav-btn" data-section="farm-management"><i class="fas fa-tasks"></i> Farm Management</button></li>
+                <li><button class="nav-btn" data-section="market-analysis"><i class="fas fa-trending-up"></i> Market Analysis</button></li>
+                <li><button class="nav-btn" data-section="disease-detection"><i class="fas fa-microscope"></i> Disease Detection</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h1>Farm Dashboard</h1>
+                    <p>Real-time overview of your agricultural operations</p>
+                </div>
+
+                <!-- Weather Widget -->
+                <div class="weather-widget">
+                    <div class="weather-info">
+                        <div class="weather-temp">28°C</div>
+                        <div class="weather-desc">Partly Cloudy</div>
+                        <div class="weather-details">
+                            <span>💧 75% Humidity</span>
+                            <span>🌧️ 45mm Rainfall</span>
+                            <span>💨 12 km/h Wind</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">🏡</div>
+                        <div class="metric-value">25.5 ha</div>
+                        <div class="metric-label">Total Farm Area</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🌾</div>
+                        <div class="metric-value">22.3 ha</div>
+                        <div class="metric-label">Cultivated Area</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-value">2,847 kg</div>
+                        <div class="metric-label">Expected Yield</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-value">23.8%</div>
+                        <div class="metric-label">Profit Margin</div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3>Yield Trends</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="yieldChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Market Prices</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Alerts -->
+                <div class="alerts-section">
+                    <h3>Recent Alerts & Recommendations</h3>
+                    <div class="alert-item alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Monitor for early signs of leaf blight in tomato crops</span>
+                    </div>
+                    <div class="alert-item alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Cotton ready for harvest in 2-3 weeks based on current conditions</span>
+                    </div>
+                    <div class="alert-item alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Reduce watering frequency by 20% due to recent rainfall</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crop Recommendation Section -->
+            <section id="crop-recommendation" class="section">
+                <div class="section-header">
+                    <h1>Crop Recommendation</h1>
+                    <p>AI-driven crop suggestions based on your conditions</p>
+                </div>
+
+                <div class="recommendation-container">
+                    <div class="input-form">
+                        <h3>Soil & Weather Parameters</h3>
+                        <form id="cropRecommendationForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Nitrogen (N)</label>
+                                    <input type="number" class="form-control" id="nitrogen" placeholder="kg/ha" value="40">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phosphorus (P)</label>
+                                    <input type="number" class="form-control" id="phosphorus" placeholder="kg/ha" value="35">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Potassium (K)</label>
+                                    <input type="number" class="form-control" id="potassium" placeholder="kg/ha" value="25">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">pH Level</label>
+                                    <input type="number" step="0.1" class="form-control" id="ph" placeholder="0-14" value="6.5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Temperature (°C)</label>
+                                    <input type="number" class="form-control" id="temperature" placeholder="°C" value="28">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Rainfall (mm)</label>
+                                    <input type="number" class="form-control" id="rainfall" placeholder="mm" value="45">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-robot"></i> Get AI Recommendations
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="results-section">
+                        <div id="recommendationResults" class="hidden">
+                            <h3>Recommended Crops</h3>
+                            <div id="cropRecommendations"></div>
+                        </div>
+                        <div id="loadingRecommendation" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI analyzing your conditions...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Yield Prediction Section -->
+            <section id="yield-prediction" class="section">
+                <div class="section-header">
+                    <h1>Yield Prediction</h1>
+                    <p>Forecast your crop yields with AI-powered analytics</p>
+                </div>
+
+                <div class="prediction-container">
+                    <div class="input-form">
+                        <h3>Field Conditions</h3>
+                        <form id="yieldPredictionForm">
+                            <div class="form-group">
+                                <label class="form-label">Select Crop</label>
+                                <select class="form-control" id="cropSelect">
+                                    <option value="">Choose a crop</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="corn">Corn</option>
+                                    <option value="cotton">Cotton</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Field Area (ha)</label>
+                                    <input type="number" step="0.1" class="form-control" id="fieldArea" value="5.0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Soil Quality</label>
+                                    <select class="form-control" id="soilQuality">
+                                        <option value="excellent">Excellent</option>
+                                        <option value="good" selected>Good</option>
+                                        <option value="average">Average</option>
+                                        <option value="poor">Poor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Irrigation Type</label>
+                                    <select class="form-control" id="irrigationType">
+                                        <option value="drip">Drip Irrigation</option>
+                                        <option value="sprinkler" selected>Sprinkler</option>
+                                        <option value="flood">Flood Irrigation</option>
+                                        <option value="rainfed">Rain-fed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Fertilizer Usage</label>
+                                    <select class="form-control" id="fertilizerUsage">
+                                        <option value="organic">Organic</option>
+                                        <option value="synthetic" selected>Synthetic</option>
+                                        <option value="mixed">Mixed</option>
+                                        <option value="minimal">Minimal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-chart-line"></i> Predict Yield
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="results-section">
+                        <div id="yieldResults" class="hidden">
+                            <div class="prediction-cards">
+                                <div class="prediction-card">
+                                    <h4>Predicted Yield</h4>
+                                    <div class="prediction-value" id="predictedYield">0</div>
+                                    <div class="prediction-unit">kg/ha</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Confidence Score</h4>
+                                    <div class="prediction-value" id="confidenceScore">0%</div>
+                                    <div class="prediction-unit">accuracy</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Risk Assessment</h4>
+                                    <div class="prediction-value" id="riskLevel">Low</div>
+                                    <div class="prediction-unit">risk</div>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Yield Forecast</h4>
+                                <div style="position: relative; height: 250px;">
+                                    <canvas id="yieldForecastChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="loadingYield" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI calculating yield predictions...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Farm Management Section -->
+            <section id="farm-management" class="section">
+                <div class="section-header">
+                    <h1>Farm Management</h1>
+                    <p>Optimize your farming operations with AI insights</p>
+                </div>
+
+                <div class="management-grid">
+                    <div class="management-card">
+                        <h3><i class="fas fa-calendar"></i> Task Schedule</h3>
+                        <div class="task-list">
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Irrigation - North Field</strong>
+                                    <span class="task-date">Today, 6:00 AM</span>
+                                </div>
+                                <span class="status status--warning">Pending</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Fertilizer Application</strong>
+                                    <span class="task-date">Sept 15, 2025</span>
+                                </div>
+                                <span class="status status--info">Scheduled</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Pest Monitoring</strong>
+                                    <span class="task-date">Sept 14, 2025</span>
+                                </div>
+                                <span class="status status--success">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-tint"></i> Irrigation Plan</h3>
+                        <div class="irrigation-info">
+                            <div class="info-row">
+                                <span>Today's Water Usage</span>
+                                <strong>2,450L</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Optimal Schedule</span>
+                                <strong>6 AM, 6 PM</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Soil Moisture</span>
+                                <strong>68%</strong>
+                            </div>
+                            <button class="btn btn--secondary btn--sm">Adjust Schedule</button>
+                        </div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-seedling"></i> Crop Calendar</h3>
+                        <div class="calendar-view">
+                            <div class="calendar-item">
+                                <div class="calendar-date">Sept 20</div>
+                                <div class="calendar-task">Wheat Sowing</div>
+                            </div>
+                            <div class="calendar-item">
+                                <div class="calendar-date">Oct 5</div>
+                                <div class="calendar-task">Cotton Harvest</div>
+                            </div>
+                            <div class="calendar-item">
+                                <div class="calendar-date">Oct 15</div>
+                                <div class="calendar-task">Rice Processing</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-calculator"></i> Resource Allocation</h3>
+                        <div class="resource-chart">
+                            <div style="position: relative; height: 200px;">
+                                <canvas id="resourceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Analysis Section -->
+            <section id="market-analysis" class="section">
+                <div class="section-header">
+                    <h1>Market Analysis</h1>
+                    <p>Real-time market trends and price forecasting</p>
+                </div>
+
+                <div class="market-grid">
+                    <div class="price-cards">
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌾</span>
+                                <div class="crop-info">
+                                    <strong>Rice</strong>
+                                    <span class="price-trend trend-up">↗ +5.2%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹2,500/quintal</div>
+                            <div class="prediction">Expected to increase (85% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌾</span>
+                                <div class="crop-info">
+                                    <strong>Wheat</strong>
+                                    <span class="price-trend trend-stable">→ 0%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹2,200/quintal</div>
+                            <div class="prediction">Expected to remain stable (78% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌿</span>
+                                <div class="crop-info">
+                                    <strong>Cotton</strong>
+                                    <span class="price-trend trend-down">↘ -2.8%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹6,800/quintal</div>
+                            <div class="prediction">Expected to decrease (82% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌽</span>
+                                <div class="crop-info">
+                                    <strong>Corn</strong>
+                                    <span class="price-trend trend-up">↗ +3.4%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹1,950/quintal</div>
+                            <div class="prediction">Expected to increase (90% confidence)</div>
+                        </div>
+                    </div>
+
+                    <div class="market-charts">
+                        <div class="chart-container">
+                            <h3>Price Trends (Last 30 Days)</h3>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="marketTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="profit-calculator">
+                            <h3>Profit Calculator</h3>
+                            <div class="calculator-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Crop</label>
+                                        <select class="form-control" id="profitCrop">
+                                            <option value="rice">Rice</option>
+                                            <option value="wheat">Wheat</option>
+                                            <option value="cotton">Cotton</option>
+                                            <option value="corn">Corn</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Quantity (quintals)</label>
+                                        <input type="number" class="form-control" id="profitQuantity" value="100">
+                                    </div>
+                                </div>
+                                <button class="btn btn--primary" onclick="calculateProfit()">Calculate Profit</button>
+                                <div id="profitResult" class="profit-result hidden">
+                                    <div class="profit-item">
+                                        <span>Expected Revenue:</span>
+                                        <strong id="expectedRevenue">₹0</strong>
+                                    </div>
+                                    <div class="profit-item">
+                                        <span>Production Cost:</span>
+                                        <strong id="productionCost">₹0</strong>
+                                    </div>
+                                    <div class="profit-item profit-total">
+                                        <span>Net Profit:</span>
+                                        <strong id="netProfit">₹0</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disease Detection Section -->
+            <section id="disease-detection" class="section">
+                <div class="section-header">
+                    <h1>Disease Detection</h1>
+                    <p>AI-powered disease identification and treatment recommendations</p>
+                </div>
+
+                <div class="detection-container">
+                    <div class="upload-section">
+                        <h3>Upload Crop Image</h3>
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p>Drag & drop an image here or click to select</p>
+                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                            <button class="btn btn--outline" onclick="document.getElementById('imageUpload').click()">
+                                Choose Image
+                            </button>
+                        </div>
+                        <div id="imagePreview" class="image-preview hidden">
+                            <img id="previewImg" alt="Uploaded crop image">
+                            <button class="btn btn--primary" onclick="analyzeImage()">
+                                <i class="fas fa-search"></i> Analyze Image
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="detection-results">
+                        <div id="diseaseResults" class="hidden">
+                            <h3>Analysis Results</h3>
+                            <div class="disease-info">
+                                <div class="disease-card">
+                                    <div class="disease-header">
+                                        <strong id="diseaseName">Disease Name</strong>
+                                        <span id="diseaseSeverity" class="status">Severity</span>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="detail-section">
+                                            <h4>Treatment Recommendation</h4>
+                                            <p id="treatmentText">Treatment details...</p>
+                                        </div>
+                                        <div class="detail-section">
+                                            <h4>Prevention Strategies</h4>
+                                            <p id="preventionText">Prevention measures...</p>
+                                        </div>
+                                        <div class="detail-section">
+                                            <h4>Confidence Score</h4>
+                                            <div class="confidence-bar">
+                                                <div class="confidence-fill" id="confidenceFill"></div>
+                                                <span id="confidenceText">85%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="loadingAnalysis" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI analyzing crop image...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
