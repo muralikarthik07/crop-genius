@@ -3,610 +3,517 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CropGenius - Smart Agricultural Platform</title>
+    <title>CropGenius - AI-Powered Agricultural Platform</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </head>
 <body>
-    <!-- Authentication Modal -->
-    <div id="authModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="authModalTitle">Login to CropGenius</h3>
-                <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo">🌱 CropGenius</h2>
+                <p class="tagline">AI-Powered Agriculture</p>
             </div>
-            <div class="modal-body">
-                <form id="authForm">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="authEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" id="authPassword" required>
-                    </div>
-                    <div id="registerFields" class="hidden">
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="authName">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Role</label>
-                            <select class="form-control" id="authRole">
-                                <option value="farmer">Farmer</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full-width" id="authSubmitBtn">Login</button>
-                    <p class="auth-toggle">
-                        <span id="authToggleText">Don't have an account?</span>
-                        <a href="#" onclick="toggleAuthMode()" id="authToggleLink">Sign up</a>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
+            <ul class="nav-menu">
+                <li><button class="nav-btn active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button></li>
+                <li><button class="nav-btn" data-section="crop-recommendation"><i class="fas fa-seedling"></i> Crop Recommendation</button></li>
+                <li><button class="nav-btn" data-section="yield-prediction"><i class="fas fa-chart-bar"></i> Yield Prediction</button></li>
+                <li><button class="nav-btn" data-section="farm-management"><i class="fas fa-tasks"></i> Farm Management</button></li>
+                <li><button class="nav-btn" data-section="market-analysis"><i class="fas fa-trending-up"></i> Market Analysis</button></li>
+                <li><button class="nav-btn" data-section="disease-detection"><i class="fas fa-microscope"></i> Disease Detection</button></li>
+            </ul>
+        </nav>
 
-    <!-- Main Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-brand">
-                <h2>CropGenius</h2>
-            </div>
-            <div class="navbar-menu">
-                <button class="navbar-item" onclick="showSection('dashboard')" data-section="dashboard">Dashboard</button>
-                <button class="navbar-item" onclick="showSection('farms')" data-section="farms">Farms</button>
-                <button class="navbar-item" onclick="showSection('crops')" data-section="crops">Crops</button>
-                <button class="navbar-item" onclick="showSection('disease')" data-section="disease">Disease Detection</button>
-                <button class="navbar-item" onclick="showSection('market')" data-section="market">Market</button>
-                <button class="navbar-item" onclick="showSection('weather')" data-section="weather">Weather</button>
-                <button class="navbar-item" onclick="showSection('analytics')" data-section="analytics">Analytics</button>
-                <button class="btn btn--outline btn--sm" onclick="logout()">Logout</button>
-            </div>
-        </div>
-    </nav>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h1>Farm Dashboard</h1>
+                    <p>Real-time overview of your agricultural operations</p>
+                </div>
 
-    <!-- Dashboard Section -->
-    <section id="dashboard" class="section active">
-        <div class="container">
-            <div class="section-header">
-                <h1>Dashboard Overview</h1>
-                <p class="section-subtitle">Welcome back! Here's your farm overview.</p>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🌾</div>
-                    <div class="stat-content">
-                        <h3 id="totalFarms">1</h3>
-                        <p>Total Farms</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📏</div>
-                    <div class="stat-content">
-                        <h3 id="totalArea">25.5</h3>
-                        <p>Total Area (acres)</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🌱</div>
-                    <div class="stat-content">
-                        <h3 id="activeCrops">1</h3>
-                        <p>Active Crops</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">💰</div>
-                    <div class="stat-content">
-                        <h3 id="estimatedValue">₹2,62,500</h3>
-                        <p>Estimated Value</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Dashboard Grid -->
-            <div class="dashboard-grid">
                 <!-- Weather Widget -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Current Weather</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="weather-current">
-                            <div class="weather-main">
-                                <span class="weather-temp">28°C</span>
-                                <span class="weather-condition">Partly Cloudy</span>
-                            </div>
-                            <div class="weather-details">
-                                <div class="weather-detail">
-                                    <span>Humidity</span>
-                                    <span>75%</span>
-                                </div>
-                                <div class="weather-detail">
-                                    <span>Wind</span>
-                                    <span>12 km/h</span>
-                                </div>
-                                <div class="weather-detail">
-                                    <span>Rainfall</span>
-                                    <span>45mm</span>
-                                </div>
-                            </div>
+                <div class="weather-widget">
+                    <div class="weather-info">
+                        <div class="weather-temp">28°C</div>
+                        <div class="weather-desc">Partly Cloudy</div>
+                        <div class="weather-details">
+                            <span>💧 75% Humidity</span>
+                            <span>🌧️ 45mm Rainfall</span>
+                            <span>💨 12 km/h Wind</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Market Prices -->
-                <div class="dashboard-card">
-                    <div class="card-header">
+                <!-- Key Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">🏡</div>
+                        <div class="metric-value">25.5 ha</div>
+                        <div class="metric-label">Total Farm Area</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🌾</div>
+                        <div class="metric-value">22.3 ha</div>
+                        <div class="metric-label">Cultivated Area</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-value">2,847 kg</div>
+                        <div class="metric-label">Expected Yield</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-value">23.8%</div>
+                        <div class="metric-label">Profit Margin</div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3>Yield Trends</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="yieldChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
                         <h3>Market Prices</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="marketPrices" class="market-list">
-                            <!-- Market prices will be populated here -->
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="priceChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Activity -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Recent Activity</h3>
+                <!-- Recent Alerts -->
+                <div class="alerts-section">
+                    <h3>Recent Alerts & Recommendations</h3>
+                    <div class="alert-item alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Monitor for early signs of leaf blight in tomato crops</span>
                     </div>
-                    <div class="card-body">
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <span class="activity-icon">🌱</span>
-                                <div class="activity-content">
-                                    <p>Rice crop planted in Green Valley Farm</p>
-                                    <span class="activity-time">2 days ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <span class="activity-icon">📊</span>
-                                <div class="activity-content">
-                                    <p>Market analysis updated</p>
-                                    <span class="activity-time">1 week ago</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="alert-item alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Cotton ready for harvest in 2-3 weeks based on current conditions</span>
+                    </div>
+                    <div class="alert-item alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Reduce watering frequency by 20% due to recent rainfall</span>
                     </div>
                 </div>
+            </section>
 
-                <!-- Quick Actions -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Quick Actions</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="action-buttons">
-                            <button class="btn btn--secondary btn--sm" onclick="showSection('farms')">Add Farm</button>
-                            <button class="btn btn--secondary btn--sm" onclick="showSection('crops')">Get Crop Recommendation</button>
-                            <button class="btn btn--secondary btn--sm" onclick="showSection('disease')">Detect Disease</button>
-                            <button class="btn btn--secondary btn--sm" onclick="showSection('market')">Check Market</button>
-                        </div>
-                    </div>
+            <!-- Crop Recommendation Section -->
+            <section id="crop-recommendation" class="section">
+                <div class="section-header">
+                    <h1>Crop Recommendation</h1>
+                    <p>AI-driven crop suggestions based on your conditions</p>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Disease Detection Section -->
-    <section id="disease" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>AI Disease Detection</h1>
-                <p class="section-subtitle">Upload crop images for instant disease diagnosis and treatment recommendations</p>
-            </div>
-            
-            <div class="disease-tabs">
-                <button class="tab-btn active" onclick="showDiseaseTab('detection')">Disease Detection</button>
-                <button class="tab-btn" onclick="showDiseaseTab('database')">Disease Database</button>
-                <button class="tab-btn" onclick="showDiseaseTab('history')">Detection History</button>
-                <button class="tab-btn" onclick="showDiseaseTab('alerts')">Risk Alerts</button>
-            </div>
-
-            <!-- Disease Detection Tab -->
-            <div id="diseaseDetection" class="tab-content active">
-                <div class="detection-layout">
-                    <!-- Upload Section -->
-                    <div class="upload-section">
-                        <h3>Upload Plant Image</h3>
-                        <div class="drag-drop-area" id="dragDropArea" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
-                            <div class="upload-content">
-                                <div class="upload-icon">📷</div>
-                                <h4>Drag & Drop Image Here</h4>
-                                <p>or <button class="btn btn--outline btn--sm" onclick="document.getElementById('diseaseImageInput').click()">Browse Files</button></p>
-                                <div class="upload-constraints">
-                                    <small>Supports: JPEG, PNG, GIF • Max size: 5MB • Min resolution: 200x200</small>
+                <div class="recommendation-container">
+                    <div class="input-form">
+                        <h3>Soil & Weather Parameters</h3>
+                        <form id="cropRecommendationForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Nitrogen (N)</label>
+                                    <input type="number" class="form-control" id="nitrogen" placeholder="kg/ha" value="40">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phosphorus (P)</label>
+                                    <input type="number" class="form-control" id="phosphorus" placeholder="kg/ha" value="35">
                                 </div>
                             </div>
-                            <input type="file" id="diseaseImageInput" accept="image/jpeg,image/png,image/gif" class="hidden" onchange="handleImageUpload(this)">
-                        </div>
-                        
-                        <div id="uploadProgress" class="upload-progress hidden">
-                            <div class="progress-bar">
-                                <div class="progress-fill"></div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Potassium (K)</label>
+                                    <input type="number" class="form-control" id="potassium" placeholder="kg/ha" value="25">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">pH Level</label>
+                                    <input type="number" step="0.1" class="form-control" id="ph" placeholder="0-14" value="6.5">
+                                </div>
                             </div>
-                            <span class="progress-text">Uploading...</span>
-                        </div>
-                        
-                        <div id="imagePreview" class="image-preview-section hidden">
-                            <img id="previewImage" alt="Uploaded crop image" class="preview-img">
-                            <div class="preview-actions">
-                                <button class="btn btn--primary" onclick="analyzeImage()">Analyze Disease</button>
-                                <button class="btn btn--outline" onclick="clearImage()">Upload New Image</button>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Temperature (°C)</label>
+                                    <input type="number" class="form-control" id="temperature" placeholder="°C" value="28">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Rainfall (mm)</label>
+                                    <input type="number" class="form-control" id="rainfall" placeholder="mm" value="45">
+                                </div>
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-robot"></i> Get AI Recommendations
+                            </button>
+                        </form>
                     </div>
 
-                    <!-- Analysis Section -->
-                    <div id="analysisSection" class="analysis-section hidden">
-                        <h3>AI Analysis in Progress</h3>
-                        <div class="analysis-steps" id="analysisSteps">
-                            <!-- Steps will be populated during analysis -->
+                    <div class="results-section">
+                        <div id="recommendationResults" class="hidden">
+                            <h3>Recommended Crops</h3>
+                            <div id="cropRecommendations"></div>
                         </div>
-                        <div class="analysis-progress">
+                        <div id="loadingRecommendation" class="loading hidden">
                             <div class="spinner"></div>
-                            <p id="analysisStatus">Initializing analysis...</p>
-                        </div>
-                    </div>
-
-                    <!-- Results Section -->
-                    <div id="resultsSection" class="results-section hidden">
-                        <div class="results-header">
-                            <h3>Disease Detection Results</h3>
-                            <div class="results-actions">
-                                <button class="btn btn--secondary btn--sm" onclick="saveResults()">Save Results</button>
-                                <button class="btn btn--outline btn--sm" onclick="shareResults()">Share</button>
-                            </div>
-                        </div>
-                        
-                        <div id="detectionResults" class="detection-results">
-                            <!-- Results will be populated here -->
-                        </div>
-                        
-                        <div class="recommendations-panel">
-                            <h4>Treatment Recommendations</h4>
-                            <div id="treatmentRecommendations" class="treatment-tabs">
-                                <div class="treatment-tab-buttons">
-                                    <button class="treatment-tab-btn active" onclick="showTreatmentTab('chemical')">Chemical Treatment</button>
-                                    <button class="treatment-tab-btn" onclick="showTreatmentTab('organic')">Organic Treatment</button>
-                                    <button class="treatment-tab-btn" onclick="showTreatmentTab('prevention')">Prevention</button>
-                                </div>
-                                <div id="treatmentContent" class="treatment-content">
-                                    <!-- Treatment content will be populated here -->
-                                </div>
-                            </div>
+                            <p>AI analyzing your conditions...</p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Disease Database Tab -->
-            <div id="diseaseDatabase" class="tab-content">
-                <div class="database-controls">
-                    <div class="search-filters">
-                        <input type="text" class="form-control" id="diseaseSearch" placeholder="Search diseases..." onkeyup="filterDiseases()">
-                        <select class="form-control" id="diseaseTypeFilter" onchange="filterDiseases()">
-                            <option value="">All Disease Types</option>
-                            <option value="fungal">Fungal</option>
-                            <option value="bacterial">Bacterial</option>
-                            <option value="viral">Viral</option>
-                            <option value="pest">Pest</option>
-                        </select>
-                        <select class="form-control" id="cropFilter" onchange="filterDiseases()">
-                            <option value="">All Crops</option>
-                            <option value="Rice">Rice</option>
-                            <option value="Wheat">Wheat</option>
-                            <option value="Tomato">Tomato</option>
-                            <option value="Potato">Potato</option>
-                        </select>
-                    </div>
+            <!-- Yield Prediction Section -->
+            <section id="yield-prediction" class="section">
+                <div class="section-header">
+                    <h1>Yield Prediction</h1>
+                    <p>Forecast your crop yields with AI-powered analytics</p>
                 </div>
-                
-                <div id="diseaseList" class="disease-list">
-                    <!-- Disease database will be populated here -->
-                </div>
-            </div>
 
-            <!-- Detection History Tab -->
-            <div id="diseaseHistory" class="tab-content">
-                <div class="history-header">
-                    <h3>Recent Disease Detections</h3>
-                    <button class="btn btn--outline btn--sm" onclick="exportHistory()">Export History</button>
-                </div>
-                
-                <div id="historyList" class="history-list">
-                    <!-- History will be populated here -->
-                </div>
-            </div>
-
-            <!-- Risk Alerts Tab -->
-            <div id="diseaseAlerts" class="tab-content">
-                <div class="alerts-grid">
-                    <div class="alert-card">
-                        <div class="alert-header">
-                            <h3>Current Risk Alerts</h3>
-                            <span class="alert-count">3 active alerts</span>
-                        </div>
-                        <div class="alert-list">
-                            <div class="risk-alert risk-high">
-                                <div class="alert-icon">⚠️</div>
-                                <div class="alert-content">
-                                    <h4>High Risk: Late Blight</h4>
-                                    <p>Weather conditions favorable for late blight in tomato crops. Take preventive measures.</p>
-                                    <span class="alert-time">2 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="risk-alert risk-medium">
-                                <div class="alert-icon">🟡</div>
-                                <div class="alert-content">
-                                    <h4>Medium Risk: Aphid Infestation</h4>
-                                    <p>Increasing aphid activity reported in nearby areas. Monitor crops closely.</p>
-                                    <span class="alert-time">6 hours ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="disease-calendar">
-                        <h3>Disease Risk Calendar</h3>
-                        <div class="calendar-grid">
-                            <div class="calendar-month">
-                                <h4>September 2025</h4>
-                                <div class="risk-indicators">
-                                    <div class="risk-day high">21 - Late Blight Risk</div>
-                                    <div class="risk-day medium">23 - Powdery Mildew</div>
-                                    <div class="risk-day low">25 - Root Rot</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Farms Section -->
-    <section id="farms" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>Farm Management</h1>
-                <button class="btn btn--primary" onclick="showAddFarmModal()">Add New Farm</button>
-            </div>
-            
-            <div id="farmsList" class="farms-grid">
-                <!-- Farms will be populated here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Crops Section -->
-    <section id="crops" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>Crop Management</h1>
-            </div>
-            
-            <div class="crops-tabs">
-                <button class="tab-btn active" onclick="showCropTab('recommend')">Crop Recommendation</button>
-                <button class="tab-btn" onclick="showCropTab('predict')">Yield Prediction</button>
-            </div>
-
-            <!-- Crop Recommendation Tab -->
-            <div id="cropRecommend" class="tab-content active">
-                <div class="recommendation-form">
-                    <h3>Get AI-Powered Crop Recommendations</h3>
-                    <form id="recommendationForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label">Soil pH</label>
-                                <input type="number" step="0.1" class="form-control" id="soilPH" placeholder="6.5" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Nitrogen (N)</label>
-                                <input type="number" class="form-control" id="nitrogen" placeholder="50" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Phosphorus (P)</label>
-                                <input type="number" class="form-control" id="phosphorus" placeholder="40" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Potassium (K)</label>
-                                <input type="number" class="form-control" id="potassium" placeholder="55" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Temperature (°C)</label>
-                                <input type="number" class="form-control" id="temperature" placeholder="28" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Rainfall (mm)</label>
-                                <input type="number" class="form-control" id="rainfall" placeholder="45" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Humidity (%)</label>
-                                <input type="number" class="form-control" id="humidity" placeholder="75" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Season</label>
-                                <select class="form-control" id="season" required>
-                                    <option value="">Select Season</option>
-                                    <option value="kharif">Kharif (Summer)</option>
-                                    <option value="rabi">Rabi (Winter)</option>
-                                    <option value="zaid">Zaid (Spring)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn--primary">Get Recommendations</button>
-                    </form>
-                    
-                    <div id="recommendationResults" class="results-section hidden">
-                        <h4>Recommended Crops</h4>
-                        <div id="recommendationList" class="recommendation-list">
-                            <!-- Results will be populated here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Yield Prediction Tab -->
-            <div id="cropPredict" class="tab-content">
-                <div class="prediction-form">
-                    <h3>Predict Crop Yield</h3>
-                    <form id="predictionForm">
-                        <div class="form-grid">
+                <div class="prediction-container">
+                    <div class="input-form">
+                        <h3>Field Conditions</h3>
+                        <form id="yieldPredictionForm">
                             <div class="form-group">
                                 <label class="form-label">Select Crop</label>
-                                <select class="form-control" id="cropSelect" required>
+                                <select class="form-control" id="cropSelect">
                                     <option value="">Choose a crop</option>
-                                    <option value="Rice">Rice</option>
-                                    <option value="Wheat">Wheat</option>
-                                    <option value="Cotton">Cotton</option>
-                                    <option value="Tomato">Tomato</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="corn">Corn</option>
+                                    <option value="cotton">Cotton</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Area (acres)</label>
-                                <input type="number" step="0.1" class="form-control" id="cropArea" placeholder="10.5" required>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Field Area (ha)</label>
+                                    <input type="number" step="0.1" class="form-control" id="fieldArea" value="5.0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Soil Quality</label>
+                                    <select class="form-control" id="soilQuality">
+                                        <option value="excellent">Excellent</option>
+                                        <option value="good" selected>Good</option>
+                                        <option value="average">Average</option>
+                                        <option value="poor">Poor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Irrigation Type</label>
+                                    <select class="form-control" id="irrigationType">
+                                        <option value="drip">Drip Irrigation</option>
+                                        <option value="sprinkler" selected>Sprinkler</option>
+                                        <option value="flood">Flood Irrigation</option>
+                                        <option value="rainfed">Rain-fed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Fertilizer Usage</label>
+                                    <select class="form-control" id="fertilizerUsage">
+                                        <option value="organic">Organic</option>
+                                        <option value="synthetic" selected>Synthetic</option>
+                                        <option value="mixed">Mixed</option>
+                                        <option value="minimal">Minimal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fas fa-chart-line"></i> Predict Yield
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="results-section">
+                        <div id="yieldResults" class="hidden">
+                            <div class="prediction-cards">
+                                <div class="prediction-card">
+                                    <h4>Predicted Yield</h4>
+                                    <div class="prediction-value" id="predictedYield">0</div>
+                                    <div class="prediction-unit">kg/ha</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Confidence Score</h4>
+                                    <div class="prediction-value" id="confidenceScore">0%</div>
+                                    <div class="prediction-unit">accuracy</div>
+                                </div>
+                                <div class="prediction-card">
+                                    <h4>Risk Assessment</h4>
+                                    <div class="prediction-value" id="riskLevel">Low</div>
+                                    <div class="prediction-unit">risk</div>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Yield Forecast</h4>
+                                <div style="position: relative; height: 250px;">
+                                    <canvas id="yieldForecastChart"></canvas>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn--primary">Predict Yield</button>
-                    </form>
-                    
-                    <div id="predictionResults" class="results-section hidden">
-                        <h4>Yield Prediction</h4>
-                        <div id="predictionDetails" class="prediction-details">
-                            <!-- Results will be populated here -->
+                        <div id="loadingYield" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI calculating yield predictions...</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Market Section -->
-    <section id="market" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>Market Analysis</h1>
-            </div>
-            
-            <div class="market-grid">
-                <div class="market-card">
-                    <h3>Current Prices</h3>
-                    <div id="marketTable" class="market-table">
-                        <!-- Market data will be populated here -->
-                    </div>
+            <!-- Farm Management Section -->
+            <section id="farm-management" class="section">
+                <div class="section-header">
+                    <h1>Farm Management</h1>
+                    <p>Optimize your farming operations with AI insights</p>
                 </div>
-                
-                <div class="market-card">
-                    <h3>Price Trends</h3>
-                    <div class="chart-container" style="position: relative; height: 300px;">
-                        <canvas id="priceChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Weather Section -->
-    <section id="weather" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>Weather Monitoring</h1>
-            </div>
-            
-            <div class="weather-grid">
-                <div class="weather-card">
-                    <h3>7-Day Forecast</h3>
-                    <div id="weatherForecast" class="forecast-list">
-                        <!-- Weather forecast will be populated here -->
+                <div class="management-grid">
+                    <div class="management-card">
+                        <h3><i class="fas fa-calendar"></i> Task Schedule</h3>
+                        <div class="task-list">
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Irrigation - North Field</strong>
+                                    <span class="task-date">Today, 6:00 AM</span>
+                                </div>
+                                <span class="status status--warning">Pending</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Fertilizer Application</strong>
+                                    <span class="task-date">Sept 15, 2025</span>
+                                </div>
+                                <span class="status status--info">Scheduled</span>
+                            </div>
+                            <div class="task-item">
+                                <div class="task-info">
+                                    <strong>Pest Monitoring</strong>
+                                    <span class="task-date">Sept 14, 2025</span>
+                                </div>
+                                <span class="status status--success">Completed</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="weather-card">
-                    <h3>Weather Alerts</h3>
-                    <div class="alerts-list">
-                        <div class="alert alert--warning">
-                            <strong>Heavy Rain Warning</strong>
-                            <p>Heavy rainfall expected in next 48 hours. Ensure proper drainage in fields.</p>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-tint"></i> Irrigation Plan</h3>
+                        <div class="irrigation-info">
+                            <div class="info-row">
+                                <span>Today's Water Usage</span>
+                                <strong>2,450L</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Optimal Schedule</span>
+                                <strong>6 AM, 6 PM</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Soil Moisture</span>
+                                <strong>68%</strong>
+                            </div>
+                            <button class="btn btn--secondary btn--sm">Adjust Schedule</button>
+                        </div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-seedling"></i> Crop Calendar</h3>
+                        <div class="calendar-view">
+                            <div class="calendar-item">
+                                <div class="calendar-date">Sept 20</div>
+                                <div class="calendar-task">Wheat Sowing</div>
+                            </div>
+                            <div class="calendar-item">
+                                <div class="calendar-date">Oct 5</div>
+                                <div class="calendar-task">Cotton Harvest</div>
+                            </div>
+                            <div class="calendar-item">
+                                <div class="calendar-date">Oct 15</div>
+                                <div class="calendar-task">Rice Processing</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3><i class="fas fa-calculator"></i> Resource Allocation</h3>
+                        <div class="resource-chart">
+                            <div style="position: relative; height: 200px;">
+                                <canvas id="resourceChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Analytics Section -->
-    <section id="analytics" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h1>Analytics & Reports</h1>
-            </div>
-            
-            <div class="analytics-grid">
-                <div class="analytics-card">
-                    <h3>Yield Trends</h3>
-                    <div class="chart-container" style="position: relative; height: 300px;">
-                        <canvas id="yieldChart"></canvas>
-                    </div>
+            <!-- Market Analysis Section -->
+            <section id="market-analysis" class="section">
+                <div class="section-header">
+                    <h1>Market Analysis</h1>
+                    <p>Real-time market trends and price forecasting</p>
                 </div>
-                
-                <div class="analytics-card">
-                    <h3>Crop Distribution</h3>
-                    <div class="chart-container" style="position: relative; height: 300px;">
-                        <canvas id="cropChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="analytics-card">
-                    <h3>Financial Overview</h3>
-                    <div class="chart-container" style="position: relative; height: 300px;">
-                        <canvas id="financeChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Add Farm Modal -->
-    <div id="addFarmModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Farm</h3>
-                <button class="close-btn" onclick="closeAddFarmModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="addFarmForm">
-                    <div class="form-group">
-                        <label class="form-label">Farm Name</label>
-                        <input type="text" class="form-control" id="farmName" required>
+                <div class="market-grid">
+                    <div class="price-cards">
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌾</span>
+                                <div class="crop-info">
+                                    <strong>Rice</strong>
+                                    <span class="price-trend trend-up">↗ +5.2%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹2,500/quintal</div>
+                            <div class="prediction">Expected to increase (85% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌾</span>
+                                <div class="crop-info">
+                                    <strong>Wheat</strong>
+                                    <span class="price-trend trend-stable">→ 0%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹2,200/quintal</div>
+                            <div class="prediction">Expected to remain stable (78% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌿</span>
+                                <div class="crop-info">
+                                    <strong>Cotton</strong>
+                                    <span class="price-trend trend-down">↘ -2.8%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹6,800/quintal</div>
+                            <div class="prediction">Expected to decrease (82% confidence)</div>
+                        </div>
+
+                        <div class="price-card">
+                            <div class="price-header">
+                                <span class="crop-icon">🌽</span>
+                                <div class="crop-info">
+                                    <strong>Corn</strong>
+                                    <span class="price-trend trend-up">↗ +3.4%</span>
+                                </div>
+                            </div>
+                            <div class="price-value">₹1,950/quintal</div>
+                            <div class="prediction">Expected to increase (90% confidence)</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Location (City)</label>
-                        <input type="text" class="form-control" id="farmLocation" required>
+
+                    <div class="market-charts">
+                        <div class="chart-container">
+                            <h3>Price Trends (Last 30 Days)</h3>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="marketTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="profit-calculator">
+                            <h3>Profit Calculator</h3>
+                            <div class="calculator-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Crop</label>
+                                        <select class="form-control" id="profitCrop">
+                                            <option value="rice">Rice</option>
+                                            <option value="wheat">Wheat</option>
+                                            <option value="cotton">Cotton</option>
+                                            <option value="corn">Corn</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Quantity (quintals)</label>
+                                        <input type="number" class="form-control" id="profitQuantity" value="100">
+                                    </div>
+                                </div>
+                                <button class="btn btn--primary" onclick="calculateProfit()">Calculate Profit</button>
+                                <div id="profitResult" class="profit-result hidden">
+                                    <div class="profit-item">
+                                        <span>Expected Revenue:</span>
+                                        <strong id="expectedRevenue">₹0</strong>
+                                    </div>
+                                    <div class="profit-item">
+                                        <span>Production Cost:</span>
+                                        <strong id="productionCost">₹0</strong>
+                                    </div>
+                                    <div class="profit-item profit-total">
+                                        <span>Net Profit:</span>
+                                        <strong id="netProfit">₹0</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Total Area (acres)</label>
-                        <input type="number" step="0.1" class="form-control" id="farmArea" required>
+                </div>
+            </section>
+
+            <!-- Disease Detection Section -->
+            <section id="disease-detection" class="section">
+                <div class="section-header">
+                    <h1>Disease Detection</h1>
+                    <p>AI-powered disease identification and treatment recommendations</p>
+                </div>
+
+                <div class="detection-container">
+                    <div class="upload-section">
+                        <h3>Upload Crop Image</h3>
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p>Drag & drop an image here or click to select</p>
+                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                            <button class="btn btn--outline" onclick="document.getElementById('imageUpload').click()">
+                                Choose Image
+                            </button>
+                        </div>
+                        <div id="imagePreview" class="image-preview hidden">
+                            <img id="previewImg" alt="Uploaded crop image">
+                            <button class="btn btn--primary" onclick="analyzeImage()">
+                                <i class="fas fa-search"></i> Analyze Image
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Soil Type</label>
-                        <select class="form-control" id="farmSoilType" required>
-                            <option value="">Select soil type</option>
-                            <option value="loamy">Loamy</option>
-                            <option value="clayey">Clayey</option>
-                            <option value="sandy">Sandy</option>
-                            <option value="alluvial">Alluvial</option>
-                        </select>
+
+                    <div class="detection-results">
+                        <div id="diseaseResults" class="hidden">
+                            <h3>Analysis Results</h3>
+                            <div class="disease-info">
+                                <div class="disease-card">
+                                    <div class="disease-header">
+                                        <strong id="diseaseName">Disease Name</strong>
+                                        <span id="diseaseSeverity" class="status">Severity</span>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="detail-section">
+                                            <h4>Treatment Recommendation</h4>
+                                            <p id="treatmentText">Treatment details...</p>
+                                        </div>
+                                        <div class="detail-section">
+                                            <h4>Prevention Strategies</h4>
+                                            <p id="preventionText">Prevention measures...</p>
+                                        </div>
+                                        <div class="detail-section">
+                                            <h4>Confidence Score</h4>
+                                            <div class="confidence-bar">
+                                                <div class="confidence-fill" id="confidenceFill"></div>
+                                                <span id="confidenceText">85%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="loadingAnalysis" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI analyzing crop image...</p>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Add Farm</button>
-                </form>
-            </div>
-        </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="app.js"></script>

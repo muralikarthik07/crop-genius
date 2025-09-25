@@ -739,116 +739,85 @@ select.form-control {
 
 /* END PERPLEXITY DESIGN SYSTEM */
 /* Application-specific styles */
-body {
-  font-family: var(--font-family-base);
-  background-color: var(--color-background);
-  color: var(--color-text);
-}
 
-/* Modal Styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+.app-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  min-height: 100vh;
+  background-color: var(--color-background);
 }
 
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
+/* Sidebar Navigation */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, var(--color-teal-600) 0%, var(--color-teal-700) 100%);
+  color: white;
+  flex-shrink: 0;
   overflow-y: auto;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-20);
-  border-bottom: 1px solid var(--color-border);
+.sidebar-header {
+  padding: var(--space-24);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.modal-header h3 {
+.logo {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--space-8) 0;
+  color: white;
+}
+
+.tagline {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
   margin: 0;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: var(--font-size-xl);
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  padding: var(--space-4);
-}
-
-.close-btn:hover {
-  color: var(--color-text);
-}
-
-.modal-body {
-  padding: var(--space-20);
-}
-
-/* Navigation */
-.navbar {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+.nav-menu {
+  list-style: none;
   padding: var(--space-16) 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar-brand h2 {
   margin: 0;
-  color: var(--color-primary);
 }
 
-.navbar-menu {
+.nav-menu li {
+  margin-bottom: var(--space-4);
+}
+
+.nav-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: var(--space-12) var(--space-24);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  font-size: var(--font-size-base);
   display: flex;
   align-items: center;
-  gap: var(--space-16);
+  gap: var(--space-12);
 }
 
-.navbar-item {
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  padding: var(--space-8) var(--space-12);
-  border-radius: var(--radius-base);
-  transition: all var(--duration-fast) var(--ease-standard);
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.navbar-item:hover,
-.navbar-item.active {
-  color: var(--color-text);
-  background: var(--color-secondary);
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-right: 3px solid white;
 }
 
-/* Sections */
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: var(--space-32);
+  overflow-y: auto;
+}
+
 .section {
   display: none;
-  padding: var(--space-32) 0;
-  min-height: calc(100vh - 80px);
 }
 
 .section.active {
@@ -856,516 +825,572 @@ body {
 }
 
 .section-header {
-  text-align: center;
   margin-bottom: var(--space-32);
 }
 
 .section-header h1 {
+  color: var(--color-text);
   margin-bottom: var(--space-8);
 }
 
-.section-subtitle {
+.section-header p {
   color: var(--color-text-secondary);
   font-size: var(--font-size-lg);
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-20);
-  margin-bottom: var(--space-32);
-}
-
-.stat-card {
-  background: var(--color-surface);
-  padding: var(--space-24);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  display: flex;
-  align-items: center;
-  gap: var(--space-16);
-}
-
-.stat-icon {
-  font-size: var(--font-size-4xl);
-}
-
-.stat-content h3 {
-  font-size: var(--font-size-2xl);
-  margin: 0 0 var(--space-4) 0;
-  color: var(--color-primary);
-}
-
-.stat-content p {
   margin: 0;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-/* Dashboard Grid */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-24);
-}
-
-.dashboard-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  overflow: hidden;
-}
-
-.card-header {
-  padding: var(--space-20);
-  border-bottom: 1px solid var(--color-card-border-inner);
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: var(--font-size-lg);
-}
-
-.card-body {
-  padding: var(--space-20);
 }
 
 /* Weather Widget */
-.weather-current {
-  text-align: center;
+.weather-widget {
+  background: var(--color-bg-1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-bottom: var(--space-32);
+  border: 1px solid var(--color-border);
 }
 
-.weather-main {
-  margin-bottom: var(--space-16);
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
 }
 
 .weather-temp {
-  display: block;
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
 }
 
-.weather-condition {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-lg);
+.weather-desc {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
 }
 
 .weather-details {
   display: flex;
-  justify-content: space-between;
-  gap: var(--space-8);
-}
-
-.weather-detail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.weather-detail span:first-child {
+  gap: var(--space-20);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
-.weather-detail span:last-child {
-  font-weight: var(--font-weight-semibold);
-}
-
-/* Market List */
-.market-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
-
-.market-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-12);
-  background: var(--color-bg-1);
-  border-radius: var(--radius-base);
-}
-
-.market-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.market-crop {
-  font-weight: var(--font-weight-semibold);
-}
-
-.market-price {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-.market-change {
-  text-align: right;
-}
-
-.market-change.positive {
-  color: var(--color-success);
-}
-
-.market-change.negative {
-  color: var(--color-error);
-}
-
-/* Activity List */
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
-}
-
-.activity-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-12);
-}
-
-.activity-icon {
-  font-size: var(--font-size-lg);
-}
-
-.activity-content p {
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--font-size-sm);
-}
-
-.activity-time {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-}
-
-/* Action Buttons */
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-/* Auth Toggle */
-.auth-toggle {
-  text-align: center;
-  margin-top: var(--space-16);
-  margin-bottom: 0;
-}
-
-.auth-toggle a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-/* Farms Grid */
-.farms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--space-24);
-}
-
-.farm-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.farm-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-16);
-}
-
-.farm-header h3 {
-  margin: 0;
-  color: var(--color-primary);
-}
-
-.farm-location {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-.farm-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-16);
-  margin-bottom: var(--space-16);
-}
-
-.farm-detail {
-  text-align: center;
-}
-
-.farm-detail-value {
-  display: block;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
-}
-
-.farm-detail-label {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.farm-actions {
-  display: flex;
-  gap: var(--space-8);
-}
-
-/* Crop Tabs */
-.crops-tabs, .disease-tabs {
-  display: flex;
-  gap: var(--space-4);
-  margin-bottom: var(--space-32);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.tab-btn {
-  background: none;
-  border: none;
-  padding: var(--space-12) var(--space-16);
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  border-bottom: 2px solid transparent;
-  transition: all var(--duration-fast) var(--ease-standard);
-}
-
-.tab-btn:hover,
-.tab-btn.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* Form Grid */
-.form-grid {
+/* Metrics Grid */
+.metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-16);
-  margin-bottom: var(--space-24);
+  gap: var(--space-20);
+  margin-bottom: var(--space-32);
 }
 
-/* Results Section */
-.results-section {
-  margin-top: var(--space-32);
-  padding: var(--space-24);
-  background: var(--color-bg-2);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-}
-
-.results-section h4 {
-  margin-bottom: var(--space-16);
-  color: var(--color-primary);
-}
-
-/* Recommendation List */
-.recommendation-list {
-  display: grid;
-  gap: var(--space-16);
-}
-
-.recommendation-item {
+.metric-card {
   background: var(--color-surface);
-  padding: var(--space-20);
-  border-radius: var(--radius-lg);
   border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  text-align: center;
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
-.recommendation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-icon {
+  font-size: var(--font-size-3xl);
   margin-bottom: var(--space-12);
 }
 
-.recommendation-crop {
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-lg);
+.metric-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.metric-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Charts Section */
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.chart-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.chart-container h3,
+.chart-container h4 {
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
+
+/* Alerts Section */
+.alerts-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.alerts-section h3 {
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  margin-bottom: var(--space-8);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+}
+
+.alert-warning {
+  background: var(--color-bg-2);
+  color: var(--color-warning);
+}
+
+.alert-info {
+  background: var(--color-bg-1);
+  color: var(--color-info);
+}
+
+.alert-success {
+  background: var(--color-bg-3);
+  color: var(--color-success);
+}
+
+/* Form Layouts */
+.recommendation-container,
+.prediction-container,
+.detection-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-32);
+}
+
+.input-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.input-form h3 {
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+}
+
+.results-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+/* Crop Recommendation Results */
+.crop-recommendations {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.crop-card {
+  background: var(--color-bg-3);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.crop-icon {
+  font-size: var(--font-size-2xl);
+}
+
+.crop-details h4 {
+  margin: 0 0 var(--space-4) 0;
+  color: var(--color-text);
+}
+
+.crop-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
 
 .confidence-score {
   background: var(--color-success);
-  color: var(--color-btn-primary-text);
+  color: white;
   padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Yield Prediction Results */
+.prediction-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.prediction-card {
+  background: var(--color-bg-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  text-align: center;
+}
+
+.prediction-card h4 {
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.prediction-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.prediction-unit {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Farm Management */
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-24);
+}
+
+.management-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.management-card h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-12);
+  background: var(--color-bg-8);
+  border-radius: var(--radius-base);
+}
+
+.task-info strong {
+  display: block;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.task-date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.irrigation-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.calendar-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.calendar-item {
+  display: flex;
+  gap: var(--space-12);
+  padding: var(--space-8);
+  background: var(--color-bg-5);
+  border-radius: var(--radius-sm);
+}
+
+.calendar-date {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  min-width: 60px;
+}
+
+.calendar-task {
+  color: var(--color-text);
+}
+
+/* Market Analysis */
+.market-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.price-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-20);
+}
+
+.price-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+}
+
+.price-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.crop-icon {
+  font-size: var(--font-size-xl);
+}
+
+.crop-info {
+  flex: 1;
+}
+
+.crop-info strong {
+  display: block;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.price-trend {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 }
 
-.recommendation-details {
+.trend-up {
+  color: var(--color-success);
+}
+
+.trend-down {
+  color: var(--color-error);
+}
+
+.trend-stable {
   color: var(--color-text-secondary);
+}
+
+.price-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-8);
+}
+
+.prediction {
   font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
 }
 
-/* Disease Detection Styles */
-.detection-layout {
+.market-charts {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-32);
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-24);
 }
 
-.upload-section {
+.profit-calculator {
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
   border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
   padding: var(--space-24);
 }
 
-.upload-section h3 {
-  margin-bottom: var(--space-16);
-  color: var(--color-primary);
+.profit-calculator h3 {
+  margin-bottom: var(--space-20);
+  color: var(--color-text);
 }
 
-.drag-drop-area {
+.calculator-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.profit-result {
+  margin-top: var(--space-16);
+  padding: var(--space-16);
+  background: var(--color-bg-3);
+  border-radius: var(--radius-base);
+}
+
+.profit-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.profit-total {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Disease Detection */
+.upload-area {
   border: 2px dashed var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-32);
   text-align: center;
-  cursor: pointer;
+  background: var(--color-bg-6);
   transition: all var(--duration-fast) var(--ease-standard);
-  margin-bottom: var(--space-24);
-  background: var(--color-bg-3);
+  cursor: pointer;
 }
 
-.drag-drop-area:hover,
-.drag-drop-area.drag-over {
+.upload-area:hover {
   border-color: var(--color-primary);
   background: var(--color-bg-1);
 }
 
-.upload-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-8);
-}
-
 .upload-icon {
   font-size: var(--font-size-4xl);
-  margin-bottom: var(--space-8);
-}
-
-.upload-constraints {
-  margin-top: var(--space-8);
-}
-
-.upload-constraints small {
-  color: var(--color-text-secondary);
-}
-
-.upload-progress {
-  margin-bottom: var(--space-24);
-}
-
-.progress-bar {
-  width: 100%;
-  height: var(--space-8);
-  background: var(--color-secondary);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  margin-bottom: var(--space-8);
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--color-primary);
-  border-radius: var(--radius-full);
-  transition: width var(--duration-normal) var(--ease-standard);
-  width: 0%;
-}
-
-.progress-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.image-preview-section {
-  text-align: center;
-}
-
-.preview-img {
-  max-width: 100%;
-  max-height: 300px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
+  color: var(--color-primary);
   margin-bottom: var(--space-16);
 }
 
-.preview-actions {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-12);
-}
-
-/* Analysis Section */
-.analysis-section {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
+.image-preview {
   text-align: center;
+  margin-top: var(--space-16);
 }
 
-.analysis-steps {
-  margin-bottom: var(--space-24);
+.image-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
 }
 
-.analysis-step {
+.disease-card {
+  background: var(--color-bg-4);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+}
+
+.disease-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.disease-header strong {
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+}
+
+.disease-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.detail-section h4 {
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+}
+
+.detail-section p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+.confidence-bar {
+  position: relative;
+  background: var(--color-bg-8);
+  height: 20px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--space-12);
-  margin-bottom: var(--space-8);
-  background: var(--color-bg-4);
-  border-radius: var(--radius-base);
+  padding: 0 var(--space-8);
 }
 
-.analysis-step.active {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
-}
-
-.analysis-step.completed {
+.confidence-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
   background: var(--color-success);
-  color: var(--color-btn-primary-text);
+  transition: width var(--duration-normal) var(--ease-standard);
 }
 
-.step-status {
+.confidence-bar span {
+  position: relative;
+  z-index: 1;
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
 }
 
-.analysis-progress {
+/* Loading States */
+.loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-16);
+  justify-content: center;
+  padding: var(--space-32);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid var(--color-secondary);
-  border-top: 3px solid var(--color-primary);
+  border: 4px solid var(--color-border);
+  border-top: 4px solid var(--color-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin-bottom: var(--space-16);
 }
 
 @keyframes spin {
@@ -1373,604 +1398,57 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Detection Results */
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-24);
-}
-
-.results-actions {
-  display: flex;
-  gap: var(--space-8);
-}
-
-.detection-results {
-  display: grid;
-  gap: var(--space-16);
-  margin-bottom: var(--space-32);
-}
-
-.disease-result {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-20);
-}
-
-.disease-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-16);
-}
-
-.disease-name {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary);
-}
-
-.scientific-name {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  font-style: italic;
-}
-
-.confidence-meter {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-.confidence-bar {
-  width: 100px;
-  height: var(--space-8);
-  background: var(--color-secondary);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-}
-
-.confidence-fill {
-  height: 100%;
-  border-radius: var(--radius-full);
-  transition: width var(--duration-normal) var(--ease-standard);
-}
-
-.confidence-fill.high {
-  background: var(--color-success);
-}
-
-.confidence-fill.medium {
-  background: var(--color-warning);
-}
-
-.confidence-fill.low {
-  background: var(--color-error);
-}
-
-.disease-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-16);
-}
-
-.info-item {
-  background: var(--color-bg-5);
-  padding: var(--space-12);
-  border-radius: var(--radius-base);
-}
-
-.info-label {
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-4);
-}
-
-.info-value {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-}
-
-.severity-indicator {
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-}
-
-.severity-high {
-  background: rgba(var(--color-error-rgb), 0.1);
-  color: var(--color-error);
-}
-
-.severity-medium {
-  background: rgba(var(--color-warning-rgb), 0.1);
-  color: var(--color-warning);
-}
-
-.severity-low {
-  background: rgba(var(--color-success-rgb), 0.1);
-  color: var(--color-success);
-}
-
-/* Treatment Recommendations */
-.recommendations-panel {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.treatment-tabs {
-  margin-top: var(--space-16);
-}
-
-.treatment-tab-buttons {
-  display: flex;
-  gap: var(--space-4);
-  margin-bottom: var(--space-16);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.treatment-tab-btn {
-  background: none;
-  border: none;
-  padding: var(--space-8) var(--space-12);
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  border-bottom: 2px solid transparent;
-  transition: all var(--duration-fast) var(--ease-standard);
-  font-size: var(--font-size-sm);
-}
-
-.treatment-tab-btn:hover,
-.treatment-tab-btn.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-}
-
-.treatment-content {
-  min-height: 200px;
-}
-
-.treatment-item {
-  background: var(--color-bg-6);
-  padding: var(--space-16);
-  border-radius: var(--radius-base);
-  margin-bottom: var(--space-12);
-}
-
-.treatment-name {
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-8);
-}
-
-.treatment-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--space-8);
-  font-size: var(--font-size-sm);
-}
-
-.treatment-detail {
-  color: var(--color-text-secondary);
-}
-
-.treatment-detail strong {
-  color: var(--color-text);
-}
-
-/* Disease Database */
-.database-controls {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-20);
-  margin-bottom: var(--space-24);
-}
-
-.search-filters {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--space-16);
-}
-
-.disease-list {
-  display: grid;
-  gap: var(--space-16);
-}
-
-.disease-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-20);
-  transition: box-shadow var(--duration-fast) var(--ease-standard);
-}
-
-.disease-card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-/* History List */
-.history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-24);
-}
-
-.history-list {
-  display: grid;
-  gap: var(--space-16);
-}
-
-.history-item {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-20);
-  display: flex;
-  align-items: center;
-  gap: var(--space-16);
-}
-
-.history-thumbnail {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-base);
-  background: var(--color-bg-7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-xl);
-}
-
-.history-content {
-  flex: 1;
-}
-
-.history-disease {
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-4);
-}
-
-.history-date {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-/* Risk Alerts */
-.alerts-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: var(--space-32);
-}
-
-.alert-card, .disease-calendar {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.alert-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-16);
-}
-
-.alert-count {
-  background: var(--color-error);
-  color: var(--color-btn-primary-text);
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-}
-
-.risk-alert {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-12);
-  padding: var(--space-16);
-  border-radius: var(--radius-base);
-  margin-bottom: var(--space-12);
-}
-
-.risk-alert.risk-high {
-  background: rgba(var(--color-error-rgb), 0.1);
-  border-left: 4px solid var(--color-error);
-}
-
-.risk-alert.risk-medium {
-  background: rgba(var(--color-warning-rgb), 0.1);
-  border-left: 4px solid var(--color-warning);
-}
-
-.risk-alert.risk-low {
-  background: rgba(var(--color-success-rgb), 0.1);
-  border-left: 4px solid var(--color-success);
-}
-
-.alert-icon {
-  font-size: var(--font-size-lg);
-}
-
-.alert-content h4 {
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--font-size-md);
-}
-
-.alert-content p {
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.alert-time {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-}
-
-.calendar-grid {
-  margin-top: var(--space-16);
-}
-
-.risk-indicators {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-.risk-day {
-  padding: var(--space-8);
-  border-radius: var(--radius-base);
-  font-size: var(--font-size-sm);
-}
-
-.risk-day.high {
-  background: rgba(var(--color-error-rgb), 0.1);
-  color: var(--color-error);
-}
-
-.risk-day.medium {
-  background: rgba(var(--color-warning-rgb), 0.1);
-  color: var(--color-warning);
-}
-
-.risk-day.low {
-  background: rgba(var(--color-success-rgb), 0.1);
-  color: var(--color-success);
-}
-
-/* Market Grid */
-.market-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-32);
-}
-
-.market-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.market-card h3 {
-  margin: 0 0 var(--space-20) 0;
-}
-
-.market-table {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
-
-.market-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-12);
-  background: var(--color-bg-3);
-  border-radius: var(--radius-base);
-}
-
-/* Weather Grid */
-.weather-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: var(--space-32);
-}
-
-.weather-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.weather-card h3 {
-  margin: 0 0 var(--space-20) 0;
-}
-
-.forecast-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
-
-.forecast-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-12);
-  background: var(--color-bg-4);
-  border-radius: var(--radius-base);
-}
-
-.forecast-date {
-  font-weight: var(--font-weight-semibold);
-}
-
-.forecast-temp {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-/* Alerts */
-.alert {
-  padding: var(--space-16);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--space-16);
-}
-
-.alert--warning {
-  background: rgba(var(--color-warning-rgb), 0.1);
-  border: 1px solid rgba(var(--color-warning-rgb), 0.2);
-  color: var(--color-warning);
-}
-
-.alert strong {
-  display: block;
-  margin-bottom: var(--space-4);
-}
-
-.alert p {
-  margin: 0;
-  font-size: var(--font-size-sm);
-}
-
-/* Analytics Grid */
-.analytics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: var(--space-32);
-}
-
-.analytics-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--space-24);
-}
-
-.analytics-card h3 {
-  margin: 0 0 var(--space-20) 0;
-}
-
-/* Chart Container */
-.chart-container {
-  position: relative;
+/* Utility Classes */
+.hidden {
+  display: none !important;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .navbar .container {
-    flex-direction: column;
-    gap: var(--space-16);
-  }
-  
-  .navbar-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .stats-grid {
+@media (max-width: 1200px) {
+  .charts-section,
+  .market-charts {
     grid-template-columns: 1fr;
   }
   
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .market-grid,
-  .weather-grid,
-  .alerts-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .weather-details {
-    flex-direction: column;
-    gap: var(--space-12);
-  }
-  
-  .farm-details {
-    grid-template-columns: 1fr;
-  }
-  
-  .crops-tabs, .disease-tabs {
-    flex-direction: column;
-  }
-  
-  .tab-btn {
-    text-align: left;
-  }
-  
-  .search-filters {
-    grid-template-columns: 1fr;
-  }
-  
-  .detection-layout {
-    grid-template-columns: 1fr;
-  }
-  
-  .preview-actions {
-    flex-direction: column;
-  }
-  
-  .disease-info {
-    grid-template-columns: 1fr;
-  }
-  
-  .treatment-details {
+  .management-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 480px) {
-  .modal-content {
-    margin: var(--space-16);
-    width: calc(100% - 32px);
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
   }
   
-  .section {
-    padding: var(--space-16) 0;
+  .sidebar {
+    width: 100%;
+    order: 2;
   }
   
-  .section-header {
-    text-align: left;
-    margin-bottom: var(--space-24);
+  .main-content {
+    padding: var(--space-16);
   }
   
-  .farms-grid {
+  .recommendation-container,
+  .prediction-container,
+  .detection-container {
     grid-template-columns: 1fr;
   }
   
-  .analytics-grid {
+  .form-row {
     grid-template-columns: 1fr;
   }
   
-  .drag-drop-area {
-    padding: var(--space-24);
+  .prediction-cards {
+    grid-template-columns: 1fr;
   }
   
-  .results-header {
-    flex-direction: column;
-    gap: var(--space-12);
-    align-items: flex-start;
+  .price-cards {
+    grid-template-columns: 1fr;
   }
   
-  .treatment-tab-buttons {
+  .weather-info {
     flex-direction: column;
+    text-align: center;
   }
 }
